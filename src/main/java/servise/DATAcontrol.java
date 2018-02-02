@@ -4,7 +4,7 @@ import user.User;
 
 import java.sql.*;
 
-import static servise.Course.getStartDate;
+
 
 public class DATAcontrol {
 
@@ -58,6 +58,38 @@ public class DATAcontrol {
         }
 
     }
+
+    public static void creatDB(){
+        try {
+            Class.forName(DRIVER);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try (
+                Connection connection = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
+                PreparedStatement statement = connection.prepareStatement(
+                        "CREATE TABLE IF NOT EXISTS users " +
+                                "(" +
+                                "    FIRSTNAME  VARCHAR(50)," +
+                                "    LASTNAME VARCHAR(50)," +
+                                "    ROLE VARCHAR(50)," +
+                                "    PASSWORD VARCHAR(50)," +
+                                "    COURSE VARCHAR(50)," +
+                                "    ID int NOT NULL AUTO_INCREMENT" +
+                                ");"
+                )
+        ) {
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    }
+
 
 //    public static Course courseControl(){
 //
@@ -118,7 +150,7 @@ public class DATAcontrol {
 //        return null;
 //    }
 
-    }
+
 
 
 
